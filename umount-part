@@ -1,0 +1,11 @@
+#!/bin/bash
+# umount-part
+#Unmounts Partitions that were mounted by mount-part
+#
+# usage:
+#  umount-part [PATH]
+# example:
+#  ./umount-part /mnt/part1
+
+mount | grep " $1" | cut -d' ' -f3 | sort -r | xargs -r umount
+rm -rf $(mount | grep " $1" | cut -d' ' -f3)
