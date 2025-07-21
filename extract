@@ -1,0 +1,17 @@
+#!/bin/bash
+#extract.sh
+# extracts partitions of a binary file into smaller files only containing the partition
+#
+# usage:
+#  extract [FILE]
+# example:
+#  ./extract firmware.bin
+
+SRC=$1
+
+DIR=$SRC.ext
+
+mkdir $DIR
+
+eval `fdisk -l $SRC | grep ^$SRC | awk '{ print "dd if='$SRC' bs=512 of='$DIR'/"$1" skip="$2" count="$4" ; "; }'`
+
