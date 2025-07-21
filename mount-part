@@ -1,8 +1,11 @@
 #!/bin/bash
-#mount-part
-#Usage: mount-part [FILE]
-# mount binary file system to /mnt/[FILE]
-#Example: ./mount-part part1.bin
+# mount-part
+#Mounts binary file system to /mnt/[FILE]
+#
+# usage: 
+#  mount-part [FILE]
+# example:
+#  ./mount-part part1.bin
 
 SRC=$1
 umount /mnt/$1 || mkdir /mnt/$1 
