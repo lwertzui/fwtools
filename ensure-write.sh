@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # ensure-write.sh
 # compares two files and corrects the second one to match the first
 # Usage: ensure-write [CORRECT FILE] [FILE]
