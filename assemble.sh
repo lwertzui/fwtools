@@ -1,7 +1,10 @@
 #!/bin/bash +x
-
+# Assembles nultiple binary files into one at known/specified Offsets
+# 
 # usage:
-# ./assemble.sh output.bin 0:input1.bin 0x1000:input2.bin
+#  assemble [OUTPUT] [OFFSET]:[INPUT1] [OFFSET]:[INPUT] ...
+# example:
+#  ./assemble.sh output.bin 0:input1.bin 0x1000:input2.bin
 
 DST=$1
 
