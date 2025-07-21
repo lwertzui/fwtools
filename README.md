@@ -1,1 +1,1 @@
-A repository of Tools to modify single partitions in a larger binary file
+A repository of Tools to modify Large Binary files
