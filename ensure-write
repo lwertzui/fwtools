@@ -1,6 +1,6 @@
 #!/bin/bash
-# ensure-write.sh
-# compares two files and corrects the second one to match the first
+# ensure-write
+#Compares two files and corrects the second one to match the first
 # 
 # usage:
 #  ensure-write [CORRECT FILE] [FILE]
