@@ -1,7 +1,11 @@
 #!/bin/bash
 # ensure-write.sh
 # compares two files and corrects the second one to match the first
-# Usage: ensure-write [CORRECT FILE] [FILE]
+# 
+# usage:
+#  ensure-write [CORRECT FILE] [FILE]
+# example:
+#  ./ensure-write.sh checkfile.bin wrongfile.bin
 
 IN=$1
 OUT=$2
