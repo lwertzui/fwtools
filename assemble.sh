@@ -1,5 +1,6 @@
 #!/bin/bash +x
-# Assembles nultiple binary files into one at known/specified Offsets
+#assemble.sh 
+#Assembles nultiple binary files into one at known/specified Offsets
 # 
 # usage:
 #  assemble [OUTPUT] [OFFSET]:[INPUT1] [OFFSET]:[INPUT] ...
