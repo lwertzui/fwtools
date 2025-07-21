@@ -1,6 +1,6 @@
 #!/bin/bash
-#extract.sh
-# extracts partitions of a binary file into smaller files only containing the partition
+# extract
+#Extracts partitions of a binary file into smaller files only containing the partition
 #
 # usage:
 #  extract [FILE]
