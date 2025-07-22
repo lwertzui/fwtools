@@ -1,17 +1,33 @@
 #!/bin/bash
 # extract
-#Extracts partitions of a binary file into smaller files only containing the partition
+# Extracts partitions of a binary file into smaller files only containing the partition
 #
 # usage:
 #  extract [FILE]
-# example:
+# examples:
 #  ./extract firmware.bin
+#  ./extract -r firmware.bin
 
 SRC=$1
+if [[ "$1" == "-r" || "$1" == "--reassembly" ]]; then
+  SRC="$2"
+fi
 
-DIR=$SRC.ext
+DIR="$SRC.ext"
+rm -rf $DIR >> /dev/null
+mkdir $DIR
+binwalk -ql /tmp/binwalk_log.json "$SRC"
 
-mkdir -p $DIR
+jq -r '[.[] | .Analysis.file_map[] | "\(.offset):\(.name)"] | join(" ")' /tmp/binwalk_log.json 2>/dev/null > "$SRC.ext/.reassembly.txt"
 
-eval `fdisk -l $SRC | grep ^$SRC | awk '{ print "dd if='$SRC' bs=512 of='$DIR'/"$1" skip="$2" count="$4" ; "; }'`
+read -r line < "$SRC.ext/.reassembly.txt"
+
+for arg in $line; do
+  IFS=: read -r offset filename <<< "$arg"
+  dd if="$SRC" of="$DIR/$filename" bs=512 skip=$((offset / 512)) status=none
+done
+
+if [[ "$SRC" == "$1" ]]; then
+  rm -f $SRC.ext/.reassembly.txt
+fi
 
