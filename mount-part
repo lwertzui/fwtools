@@ -2,13 +2,23 @@
 # mount-part
 #Mounts binary file system to /mnt/[FILE]
 #
-# usage: 
+# usage:
 #  mount-part [FILE]
 # example:
 #  ./mount-part part1.bin
 
 SRC=$1
-umount /mnt/$1 || mkdir /mnt/$1 
-mount -o loop $SRC /mnt/$1 || mount $SRC /mnt/$1
-cd /mnt/$1 || exit 1
-exec bash
+
+if [ -d "/mnt/$1" ]; then
+	sudo umount -v /mnt/$1
+else
+	sudo mkdir -v /mnt/$1
+fi
+
+sudo mount -vo loop $1 /mnt/$1
+cd /mnt/$1
+sudo -s
+cd -
+sudo umount -v /mnt/$1
+sudo rm -rfv --preserve-root /mnt/$1
+
