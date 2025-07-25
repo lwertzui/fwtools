@@ -1,0 +1,22 @@
+#!/bin/bash
+
+SRC=$1
+DIR="$SRC.ext"
+REASSEMBLY_FILE="$DIR/.reassembly.txt"
+
+mkdir -p "$DIR"
+> "$REASSEMBLY_FILE"
+
+entries=()
+
+# Parse partition lines matching "$SRC" followed by a digit (e.g., ch7465lg-lc.img1)
+fdisk -l "$SRC" | grep "^${SRC}[0-9]" | while read -r dev start end sectors _; do
+    filename="$(basename "$dev")"
+    outfile="$DIR/$filename"
+    offset=$((start * 512))
+    dd if="$SRC" bs=512 skip="$start" count="$sectors" of="$outfile" status=none
+    entries+=("$filename:$offset")
+done
+
+# Output all entries space-separated on one line
+echo "${entries[*]}"
